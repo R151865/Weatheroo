@@ -12,12 +12,14 @@ import WeeklyForecast from "./components/WeeklyForecast/WeeklyForecast";
 import TodayWeather from "./components/TodayWeather/TodayWeather";
 import { fetchWeatherData } from "./api/OpenWeatherService";
 import { transformDateFormat } from "./utilities/DatetimeUtils";
-import UTCDatetime from "./components/Reusable/UTCDatetime";
 import LoadingBox from "./components/Reusable/LoadingBox";
 import { ReactComponent as SplashIcon } from "./assets/splash-icon.svg";
 import ErrorBox from "./components/Reusable/ErrorBox";
 import { ALL_DESCRIPTIONS } from "./utilities/DateConstants";
 import { getTodayForecastWeather, getWeekForecastWeather } from "./utilities/DataUtils";
+
+
+import Toast from "./components/Reusable/Toast";
 
 function App() {
   // State variables
@@ -223,6 +225,8 @@ function App() {
         },
       }}
     >
+
+  
       <div className="rotating-image" alt="bg "></div>
 
       <Grid
@@ -262,9 +266,11 @@ function App() {
           {/* Search component */}
           <Search onSearchChange={searchChangeHandler} />
         </Grid>
-        
+
+        <Toast text="Please do enable Location access" />
         {/* Render app content based on conditions */}
         {appContent}
+
         
       </Grid>
     </Container>
