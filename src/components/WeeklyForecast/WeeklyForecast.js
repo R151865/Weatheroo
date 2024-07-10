@@ -9,21 +9,25 @@ import DayWeatherDetails from './DayWeatherDetails';
 import Layout from '../Reusable/Layout';
 
 const WeeklyForecast = ({ data }) => {
+  // Get an array of forecast days (e.g., ['Monday', 'Tuesday', ...])
   const forecastDays = getWeekDays();
 
+  // Check if data is not provided or empty
   const noDataProvided =
     !data ||
     Object.keys(data).length === 0 ||
     !data.list ||
     data.list.length === 0;
 
+  // Initial content for when no data is provided
   let content = (
     <div style={{ width: '100%' }}>
       <ErrorBox type="error" />
     </div>
   );
 
-  if (!noDataProvided)
+  // Render content if data is provided
+  if (!noDataProvided) {
     content = (
       <Grid
         item
@@ -33,6 +37,7 @@ const WeeklyForecast = ({ data }) => {
         xs={12}
         gap="4px"
       >
+        {/* Map through each item in data.list (daily forecast) */}
         {data.list.map((item, idx) => {
           return (
             <Grid
@@ -50,12 +55,14 @@ const WeeklyForecast = ({ data }) => {
                 borderRadius: '8px',
               }}
             >
+              {/* Display day of the week, weather icon, and description */}
               <DayWeatherDetails
                 day={forecastDays[idx]}
                 src={weatherIcon(`${item.icon}`)}
                 description={item.description}
               />
 
+              {/* Container for temperature and clouds forecast items */}
               <Grid
                 container
                 sx={{
@@ -65,6 +72,7 @@ const WeeklyForecast = ({ data }) => {
                   justifyContent: 'center',
                 }}
               >
+                {/* Display temperature and clouds forecast */}
                 <WeeklyForecastItem
                   type="temperature"
                   value={Math.round(item.temp) + ' °C'}
@@ -77,6 +85,7 @@ const WeeklyForecast = ({ data }) => {
                 />
               </Grid>
 
+              {/* Container for wind and humidity forecast items */}
               <Grid
                 container
                 sx={{
@@ -86,6 +95,7 @@ const WeeklyForecast = ({ data }) => {
                   justifyContent: 'center',
                 }}
               >
+                {/* Display wind and humidity forecast */}
                 <WeeklyForecastItem
                   type="wind"
                   value={item.wind + ' m/s'}
@@ -100,6 +110,7 @@ const WeeklyForecast = ({ data }) => {
             </Grid>
           );
         })}
+        {/* Display an additional item for the sixth day if there are exactly 5 items in data.list */}
         {data.list.length === 5 && (
           <Grid
             item
@@ -115,6 +126,7 @@ const WeeklyForecast = ({ data }) => {
               borderRadius: '8px',
             }}
           >
+            {/* Display information for the sixth day */}
             <UnfedForecastItem
               day={forecastDays[5]}
               value="NaN"
@@ -124,7 +136,9 @@ const WeeklyForecast = ({ data }) => {
         )}
       </Grid>
     );
+  }
 
+  // Return the layout with the rendered content
   return (
     <Layout
       title="WEEKLY FORECAST"

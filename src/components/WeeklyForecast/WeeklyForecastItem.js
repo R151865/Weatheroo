@@ -8,10 +8,11 @@ import { ReactComponent as HumidityIcon } from '../../assets/humidity.svg';
 const WeeklyForecastItem = ({ value, type }) => {
   let iconContent;
 
+  // Determine which icon to display based on the type prop
   if (type === 'temperature')
     iconContent = (
       <ThermostatIcon
-        sx={{ fontSize: { xs: '15px', sm: '16px', md: '18px' } }}
+        sx={{ fontSize: { xs: '15px', sm: '16px', md: '18px' } }} // Responsive font size based on breakpoints
       />
     );
   else if (type === 'wind')
@@ -27,38 +28,40 @@ const WeeklyForecastItem = ({ value, type }) => {
   else if (type === 'humidity')
     iconContent = (
       <SvgIcon
-        component={HumidityIcon}
-        inheritViewBox
+        component={HumidityIcon} // Using a custom SVG icon for humidity
+        inheritViewBox // Ensures the SVG scales appropriately
         sx={{
-          fontSize: { xs: '15px', sm: '16px', md: '18px' },
+          fontSize: { xs: '15px', sm: '16px', md: '18px' }, // Responsive font size
         }}
       />
     );
+
+  // Return the styled Box component containing the icon and value
   return (
     <Box
       sx={{
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        height: '31px',
-        color: 'rgba(255, 255, 255, .7)',
-        gap: { xs: '3px', sm: '4px', md: '6px' },
-        width: '100%',
+        height: '31px', // Fixed height for consistent alignment
+        color: 'rgba(255, 255, 255, .7)', // Semi-transparent white color for icon and text
+        gap: { xs: '3px', sm: '4px', md: '6px' }, // Responsive gap between icon and text
+        width: '100%', // Full width to fill the container
       }}
     >
-      {iconContent}
+      {iconContent} {/* Render the determined icon */}
       <Typography
-        variant="p"
-        component="p"
+        variant="p" // Using variant="p" for a paragraph text
+        component="p" // Component type is a paragraph
         sx={{
-          fontSize: { xs: '12px', sm: '13px' },
-          fontWeight: { xs: '400', sm: '600' },
-          color: 'white',
-          fontFamily: 'Poppins',
-          lineHeight: 1,
+          fontSize: { xs: '12px', sm: '13px' }, // Responsive font size
+          fontWeight: { xs: '400', sm: '600' }, // Responsive font weight
+          color: 'white', // White color for text
+          fontFamily: 'Poppins', // Font family
+          lineHeight: 1, // Normal line height
         }}
       >
-        {value}
+        {value} {/* Render the value (temperature, wind speed, etc.) */}
       </Typography>
     </Box>
   );
