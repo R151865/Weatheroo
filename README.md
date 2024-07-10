@@ -1,9 +1,9 @@
 Commands:
-npm install
+npm install,
 npm start
 
 Technologies:
-React js
+React js,
 mui
 
 
